@@ -1,9 +1,14 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { nanoid } from 'nanoid';
 import { addContact } from '../../redux/contactsSlice';
+import { getContacts } from '../../redux/selectors';
+
 import classes from './Form.module.css';
 
 const Form = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
   const handleFormSubmit = e => {
     e.preventDefault();
     const {
@@ -12,13 +17,18 @@ const Form = () => {
     } = e.target.elements;
 
     if (!name || !number) return;
-
-    dispatch(
-      addContact({
-        name,
-        number,
-      })
+    const isContactExists = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
     );
+    isContactExists
+      ? toast(`Contact "${name}" already exists`)
+      : dispatch(
+          addContact({
+            name,
+            number,
+            id: nanoid(),
+          })
+        );
 
     e.target.reset();
   };
