@@ -2,11 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { nanoid } from 'nanoid';
 
-const initialState = [];
-
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState,
+  initialState: [],
   reducers: {
     addContact(state, action) {
       const isContactExists = state.some(

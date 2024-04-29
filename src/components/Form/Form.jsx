@@ -1,16 +1,9 @@
-import { useState } from 'react';
-
-import classes from './Form.module.css';
 import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contactsSlice';
+import classes from './Form.module.css';
 
 const Form = () => {
-  // const [formState, setFormState] = useState({ name: '', number: '' });
   const dispatch = useDispatch();
-
-  // const handleChange = ({ target: { name, value } }) =>
-  //   setFormState(prevState => ({ ...prevState, [name]: value.trim() }));
-
   const handleFormSubmit = e => {
     e.preventDefault();
     const {
